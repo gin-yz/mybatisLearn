@@ -1,8 +1,7 @@
-package com.cjs.mybatisLearn2;
+package com.cjs.mybatisLearnFinal;
 
-import com.cjs.mybatisLearn2.dao.UserDao;
-import com.cjs.mybatisLearn2.domain.QueryPoJo;
-import com.cjs.mybatisLearn2.domain.User;
+import com.cjs.mybatisLearnfinal.dao.UserDao;
+import com.cjs.mybatisLearnfinal.domain.User;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -13,12 +12,9 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.function.Consumer;
 
-public class TestfindUserByIdSpan {
+public class TestFindByCondition {
     private SqlSession sqlSession;
     private InputStream inputStream;
 
@@ -33,21 +29,16 @@ public class TestfindUserByIdSpan {
     }
 
     @Test
-    public void findUserByIdSpan(){
-        User user = new User();
+    public void testFindUserByCondition(){
+        User user= new User();
         user.setUsername("cjs");
-
-        List<Integer> list = new ArrayList<Integer>(Arrays.asList(129,130,131));
-
-        QueryPoJo queryPoJo = new QueryPoJo();
-        queryPoJo.setUser(user);
-        queryPoJo.setIdList(list);
-
+        user.setSex('M');
         UserDao userDao = this.sqlSession.getMapper(UserDao.class);
+        List<User> userList = userDao.findUserByCondition(user);
 
-        List<User> userList = userDao.findUserByIdSpan(queryPoJo);
         userList.forEach(System.out::println);
     }
+
 
     @After
     public void destroy() throws IOException {
@@ -55,5 +46,4 @@ public class TestfindUserByIdSpan {
         this.sqlSession.close();
         this.inputStream.close();
     }
-
 }

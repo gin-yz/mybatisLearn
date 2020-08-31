@@ -1,7 +1,7 @@
-package com.cjs.mybatisLearn2;
+package com.cjs.mybatisLearnFinal;
 
-import com.cjs.mybatisLearn2.dao.UserDao;
-import com.cjs.mybatisLearn2.domain.User;
+import com.cjs.mybatisLearnfinal.dao.UserDao;
+import com.cjs.mybatisLearnfinal.domain.User;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -9,12 +9,9 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.List;
 
-import static java.lang.String.format;
-
-public class TestInsertUser {
+public class TestUpdateUser {
     public static void main(String[] args) throws IOException {
         InputStream inputStream = Resources.getResourceAsStream("SqlMapConfig.xml");
 
@@ -24,25 +21,23 @@ public class TestInsertUser {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         UserDao userDao = sqlSession.getMapper(UserDao.class);
 
+        List<User> userList = userDao.findAll();
 
-        for (int n = 0; n < 10; n++) {
-            User user = new User();
-            user.setAddress(format("address is %s",n));
+//        for (User user:userList){
+//            if (user.getId()>=59){
+//                user.setUsername("cjsdsg"+user.getUsername().substring(3));
+//                userDao.updateUser(user);
+//            }
+//        }
+        userList.forEach(user ->{
+            if(user.getId()>=59){
+                user.setUsername("cjs"+user.getUsername().substring(6));
+                userDao.updateUser(user);
+            }
+        });
 
-            Calendar calendar =Calendar.getInstance();
-            calendar.set(1998, 4,28,12,30,10);
-            user.setBirthday(calendar.getTime());
-            user.setSex('M');
-            user.setUsername("cjs"+n);
-
-            userDao.saveUser(user);
-
-            System.out.println(user.getId());
-
-        }
 
         sqlSession.commit();
-
         sqlSession.close();
         inputStream.close();
     }

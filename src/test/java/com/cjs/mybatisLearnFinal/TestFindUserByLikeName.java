@@ -1,7 +1,7 @@
-package com.cjs.mybatisLearn2;
+package com.cjs.mybatisLearnFinal;
 
-import com.cjs.mybatisLearn2.dao.UserDao;
-import com.cjs.mybatisLearn2.domain.User;
+import com.cjs.mybatisLearnfinal.dao.UserDao;
+import com.cjs.mybatisLearnfinal.domain.User;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -14,18 +14,26 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-public class TestDeletUser {
-    private InputStream inputStream;
+public class TestFindUserByLikeName {
     private SqlSession sqlSession;
+    private InputStream inputStream;
 
     @Before
     public void init() throws IOException {
         this.inputStream = Resources.getResourceAsStream("SqlMapConfig.xml");
-
         SqlSessionFactoryBuilder sqlSessionFactoryBuilder = new SqlSessionFactoryBuilder();
-        SqlSessionFactory sqlSessionFactory = sqlSessionFactoryBuilder.build(this.inputStream);
-
+        SqlSessionFactory sqlSessionFactory = sqlSessionFactoryBuilder.build(inputStream);
         this.sqlSession = sqlSessionFactory.openSession();
+    }
+
+
+    @Test
+    public void testFindUserByLikeName(){
+        UserDao userDao = this.sqlSession.getMapper(UserDao.class);
+
+        List<User> userList = userDao.findUserByNameLike("cjs");
+
+        userList.forEach(System.out::println);
     }
 
     @After
@@ -34,19 +42,4 @@ public class TestDeletUser {
         this.sqlSession.close();
         this.inputStream.close();
     }
-
-    @Test
-    public void deleteUser() {
-        UserDao userDao = this.sqlSession.getMapper(UserDao.class);
-
-        List<User> userList = userDao.findAll();
-
-        userList.forEach(user -> {
-            if(user.getUsername().length()>=4 && user.getUsername().substring(0,3).equals("cjs")){
-                userDao.deleteUser(user.getId());
-            }
-        });
-
-    }
-
 }

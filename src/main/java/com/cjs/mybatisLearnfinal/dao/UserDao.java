@@ -1,7 +1,7 @@
-package com.cjs.mybatisLearn2.dao;
+package com.cjs.mybatisLearnfinal.dao;
 
-import com.cjs.mybatisLearn2.domain.QueryPoJo;
-import com.cjs.mybatisLearn2.domain.User;
+import com.cjs.mybatisLearnfinal.domain.QueryPoJo;
+import com.cjs.mybatisLearnfinal.domain.User;
 
 import java.util.List;
 

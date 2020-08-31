@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.cjs.mybatisLearn2</groupId>
-    <artifactId>mybatisLearn2-demo1</artifactId>
+    <groupId>com.cjs.mybatisLearnFinal</groupId>
+    <artifactId>mybatisLearnFinal-demo1</artifactId>
     <version>1.0</version>
     <dependencies>
         <dependency>

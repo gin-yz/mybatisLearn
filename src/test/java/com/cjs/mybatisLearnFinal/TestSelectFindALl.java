@@ -1,7 +1,7 @@
-package com.cjs.mybatisLearn2;
+package com.cjs.mybatisLearnFinal;
 
-import com.cjs.mybatisLearn2.dao.UserDao;
-import com.cjs.mybatisLearn2.domain.User;
+import com.cjs.mybatisLearnfinal.dao.UserDao;
+import com.cjs.mybatisLearnfinal.domain.User;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
