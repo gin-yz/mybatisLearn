@@ -1,0 +1,44 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cjs.mybatisLearnFinal.dao.RoleDao">
+    <resultMap id="rolemanytomanywithusers" type="role">
+        <id property="id" column="id"/>
+        <result property="role_name" column="role_name"/>
+        <result property="role_desc" column="role_desc"/>
+        <collection property="users" ofType="user">
+            <id property="id" column="uid"/>
+            <result property="username" column="username"/>
+            <result property="birthday" column="birthday"/>
+            <result property="sex" column="sex" />
+            <result property="address" column="address"/>
+        </collection>
+    </resultMap>
+
+    <!-- 多对多延迟查询 -->
+    <resultMap id="rolemanytomanywithusersandlazyMap" type="role">
+        <id property="id" column="id"/>
+        <result property="role_name" column="role_name"/>
+        <result property="role_desc" column="role_desc"/>
+        <collection property="users" ofType="user" select="com.cjs.mybatisLearnFinal.dao.UserDao.findUserByRoleId" column="id" fetchType="lazy"/>
+        <!-- 需要通过roleID查询数据库user_role表中ueseID,并通过userID返回多个user -->
+    </resultMap>
+
+    <select id="findRoleAll" resultType="role">
+        select * from role;
+    </select>
+
+    <select id="findRoleManyToManyWithUsers" resultMap="rolemanytomanywithusers">
+        select R.id,R.role_name,R.role_desc,U.id as uid,U.address,U.birthday,U.sex,U.username
+        from role as R
+        left join user_role as UR
+        on R.id = UR.rid
+        left join user as U
+        on UR.uid = U.id
+    </select>
+
+    <select id="findRoleManyToManyWithUsersAndLazy" resultMap="rolemanytomanywithusersandlazyMap">
+        select * from role;
+    </select>
+</mapper>

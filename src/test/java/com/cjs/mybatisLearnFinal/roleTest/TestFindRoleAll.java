@@ -1,11 +1,7 @@
-/*
-* 通过外键一对一查询并得到外键对象
-* */
+package com.cjs.mybatisLearnFinal.roleTest;
 
-package com.cjs.mybatisLearnFinal.accountTest;
-
-import com.cjs.mybatisLearnFinal.dao.AccountDao;
-import com.cjs.mybatisLearnFinal.domain.Account;
+import com.cjs.mybatisLearnFinal.dao.RoleDao;
+import com.cjs.mybatisLearnFinal.domain.Role;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -17,11 +13,10 @@ import org.junit.Test;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
-import java.util.function.Consumer;
 
-public class TestFindAccountInnerUserAll {
-    private SqlSession sqlSession;
+public class TestFindRoleAll {
     private InputStream inputStream;
+    private SqlSession sqlSession;
 
     @Before
     public void init() throws IOException {
@@ -34,17 +29,17 @@ public class TestFindAccountInnerUserAll {
     }
 
     @Test
-    public void findAccountInnerUserAll() {
-        AccountDao accountDao = this.sqlSession.getMapper(AccountDao.class);
+    public void findRoleAll(){
+        RoleDao roleDao = this.sqlSession.getMapper(RoleDao.class);
 
-        List<Account> accountList = accountDao.findAccountInnerUserAll();
+        List<Role> roleList = roleDao.findRoleAll();
 
-        accountList.forEach(System.out::println);
+        roleList.forEach(System.out::println);
     }
 
     @After
     public void destory() throws IOException {
-        this.sqlSession.commit();
+        this.sqlSession.close();
         this.sqlSession.close();
         this.inputStream.close();
     }

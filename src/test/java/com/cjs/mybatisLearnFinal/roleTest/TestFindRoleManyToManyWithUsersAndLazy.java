@@ -1,11 +1,7 @@
-/*
-* 通过外键一对一查询并得到外键对象
-* */
+package com.cjs.mybatisLearnFinal.roleTest;
 
-package com.cjs.mybatisLearnFinal.accountTest;
-
-import com.cjs.mybatisLearnFinal.dao.AccountDao;
-import com.cjs.mybatisLearnFinal.domain.Account;
+import com.cjs.mybatisLearnFinal.dao.RoleDao;
+import com.cjs.mybatisLearnFinal.domain.Role;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -19,9 +15,9 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class TestFindAccountInnerUserAll {
-    private SqlSession sqlSession;
+public class TestFindRoleManyToManyWithUsersAndLazy {
     private InputStream inputStream;
+    private SqlSession sqlSession;
 
     @Before
     public void init() throws IOException {
@@ -34,17 +30,27 @@ public class TestFindAccountInnerUserAll {
     }
 
     @Test
-    public void findAccountInnerUserAll() {
-        AccountDao accountDao = this.sqlSession.getMapper(AccountDao.class);
+    public void findRoleManyToManyWithUsersAndLazy(){
+        RoleDao roleDao = this.sqlSession.getMapper(RoleDao.class);
 
-        List<Account> accountList = accountDao.findAccountInnerUserAll();
+        List<Role> roleList = roleDao.findRoleManyToManyWithUsersAndLazy();
 
-        accountList.forEach(System.out::println);
+//        遍历时,会访问users,延迟查询执行
+//        roleList.forEach(System.out::println);
+
+//        普通访问,不访问users时,延迟查询不执行
+        roleList.forEach(new Consumer<Role>() {
+            @Override
+            public void accept(Role role) {
+                System.out.println(role.getRole_name());
+            }
+        });
+
     }
 
     @After
     public void destory() throws IOException {
-        this.sqlSession.commit();
+        this.sqlSession.close();
         this.sqlSession.close();
         this.inputStream.close();
     }

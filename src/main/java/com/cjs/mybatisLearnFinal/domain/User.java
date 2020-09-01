@@ -2,6 +2,7 @@ package com.cjs.mybatisLearnFinal.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class User implements Serializable {
     private Integer id;
@@ -9,6 +10,17 @@ public class User implements Serializable {
     private Date birthday;
     private Character sex;
     private String address;
+
+    //    一对多关系
+    private List<Account> accounts;
+
+    public List<Account> getAccounts() {
+        return accounts;
+    }
+
+    public void setAccounts(List<Account> accounts) {
+        this.accounts= accounts;
+    }
 
     public Integer getId() {
         return id;
@@ -58,6 +70,7 @@ public class User implements Serializable {
                 ", birthday=" + birthday +
                 ", sex=" + sex +
                 ", address='" + address + '\'' +
+                ", accounts=" + accounts+
                 '}';
     }
 }

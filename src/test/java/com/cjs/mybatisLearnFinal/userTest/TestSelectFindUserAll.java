@@ -41,6 +41,8 @@ public class TestSelectFindUserAll {
             }
         });
 
+        users.forEach(System.out::println);
+
         sqlSession.close();
         inputStream.close();
 

@@ -23,4 +23,8 @@ public interface UserDao {
 
     List<User> findUserByIdSpan(QueryPoJo queryPoJo); //sql语句中使用in进行查询，需要传入多个值，且多个值事先不知道传入多少个
 
+    List<User> findUserWithLotsAccountAll(); //一对多关系查询
+
+    List<User> findUserByRoleId();//多对多中的延迟查询
+
 }

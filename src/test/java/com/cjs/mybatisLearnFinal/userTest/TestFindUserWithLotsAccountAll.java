@@ -1,11 +1,7 @@
-/*
-* 通过外键一对一查询并得到外键对象
-* */
+package com.cjs.mybatisLearnFinal.userTest;
 
-package com.cjs.mybatisLearnFinal.accountTest;
-
-import com.cjs.mybatisLearnFinal.dao.AccountDao;
-import com.cjs.mybatisLearnFinal.domain.Account;
+import com.cjs.mybatisLearnFinal.dao.UserDao;
+import com.cjs.mybatisLearnFinal.domain.User;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -17,11 +13,10 @@ import org.junit.Test;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
-import java.util.function.Consumer;
 
-public class TestFindAccountInnerUserAll {
-    private SqlSession sqlSession;
+public class TestFindUserWithLotsAccountAll {
     private InputStream inputStream;
+    private SqlSession sqlSession;
 
     @Before
     public void init() throws IOException {
@@ -33,19 +28,20 @@ public class TestFindAccountInnerUserAll {
         this.sqlSession = sqlSessionFactory.openSession();
     }
 
-    @Test
-    public void findAccountInnerUserAll() {
-        AccountDao accountDao = this.sqlSession.getMapper(AccountDao.class);
-
-        List<Account> accountList = accountDao.findAccountInnerUserAll();
-
-        accountList.forEach(System.out::println);
-    }
-
     @After
-    public void destory() throws IOException {
+    public void destroy() throws IOException {
         this.sqlSession.commit();
         this.sqlSession.close();
         this.inputStream.close();
+    }
+
+    @Test
+    public void findUserWithLotsAccountAll() {
+        UserDao userDao = this.sqlSession.getMapper(UserDao.class);
+
+        List<User> userList = userDao.findUserWithLotsAccountAll();
+
+        userList.forEach(System.out::println);
+
     }
 }

@@ -11,8 +11,27 @@
         <result property="sex" column="sex"></result>
         <result property="address" column="address"></result>
     </resultMap>
+
+    <!-- 一对多关系查询结果 -->
+    <resultMap id="userWithLotsAccountMap" type="user">
+        <id property="id" column="id"></id>
+        <result property="username" column="username"></result>
+        <result property="birthday" column="birthday"></result>
+        <result property="sex" column="sex"></result>
+        <result property="address" column="address"></result>
+        <collection property="accounts" ofType="account"> <!-- ofType指定返回的对象的类型，如果未取别名，要写全名称 -->
+            <id property="id" column="aid"/>
+            <result property="uid" column="id"/>
+            <result property="money" column="money"/>
+        </collection>
+    </resultMap>
+
     <select id="findUserAll" resultMap="userMap">
         select * from user;
+    </select>
+
+    <select id="findUserById" resultMap="userMap" parameterType="java.lang.Integer">
+        select * from user where id = #{uid};
     </select>
 
     <insert id="saveUser" parameterType="com.cjs.mybatisLearnFinal.domain.User">
@@ -79,6 +98,25 @@
 
         </where>
 
+    </select>
+
+    <select id="findUserWithLotsAccountAll" resultMap="userWithLotsAccountMap">
+        select U.id,U.username,U.birthday,U.sex,U.address,A.id as aid,A.money
+        from user as U
+        left join account AS A
+        on U.id=A.uid;
+    </select>
+
+
+    <!-- 多对多中的延迟查询 -->
+    <select id="findUserByRoleId" resultType="user" parameterType="java.lang.Integer">
+        select *
+        from user as U
+        where exists
+        (select 1
+        from user_role as UR
+        where U.id = UR.uid and UR.rid = #{id}
+        )
     </select>
 
 </mapper>

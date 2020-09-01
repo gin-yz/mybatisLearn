@@ -1,7 +1,3 @@
-/*
-* 通过外键一对一查询并得到外键对象
-* */
-
 package com.cjs.mybatisLearnFinal.accountTest;
 
 import com.cjs.mybatisLearnFinal.dao.AccountDao;
@@ -19,7 +15,7 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class TestFindAccountInnerUserAll {
+public class TestFindAccountInnerUserLazy {
     private SqlSession sqlSession;
     private InputStream inputStream;
 
@@ -34,12 +30,22 @@ public class TestFindAccountInnerUserAll {
     }
 
     @Test
-    public void findAccountInnerUserAll() {
+    public void findAccountInnerUserLazy() {
         AccountDao accountDao = this.sqlSession.getMapper(AccountDao.class);
 
-        List<Account> accountList = accountDao.findAccountInnerUserAll();
+        List<Account> accountList = accountDao.findAccountInnerUserLazy();
 
-        accountList.forEach(System.out::println);
+        //如果遍历了,那么自动注入,执行查找user的任务
+//        accountList.forEach(System.out::println);
+
+        //只操作id,和user无关,不查找
+        accountList.forEach(new Consumer<Account>() {
+            @Override
+            public void accept(Account account) {
+                System.out.println(account.getId());
+            }
+        });
+
     }
 
     @After
