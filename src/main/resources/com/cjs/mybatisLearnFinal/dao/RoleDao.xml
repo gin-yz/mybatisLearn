@@ -22,7 +22,7 @@
         <result property="role_name" column="role_name"/>
         <result property="role_desc" column="role_desc"/>
         <collection property="users" ofType="user" select="com.cjs.mybatisLearnFinal.dao.UserDao.findUserByRoleId" column="id" fetchType="lazy"/>
-        <!-- 需要通过roleID查询数据库user_role表中ueseID,并通过userID返回多个user -->
+        <!-- 需要通过roleID查询数据库user_role表中ueseID,并通过userID查询user表返回多个user.上面的column就是指定的roleID -->
     </resultMap>
 
     <select id="findRoleAll" resultType="role">

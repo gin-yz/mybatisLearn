@@ -14,6 +14,9 @@
         <!-- 全局延迟加载 -->
         <setting name="lazyLoadingEnabled" value="true"/> <!-- 延迟加载的全局开关。当开启时，所有关联对象都会延迟加载。 特定关联关系中可通过设置 fetchType 属性来覆盖该项的开关状态。 -->
         <setting name="aggressiveLazyLoading" value="false"/> <!-- 开启时，任一方法的调用都会加载该对象的所有延迟加载属性。 否则，每个延迟加载属性会按需加载 -->
+
+        <!-- 二级缓存,还需在dao.xml以及方法中配置,二级缓存只传值，一级缓存传对象 -->
+        <setting name="cacheEnabled" value="true"/>
     </settings>
 
     <!-- 给domain起别名，不区分大小写- -->
