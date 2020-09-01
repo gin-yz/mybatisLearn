@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface AccountDao {
     List<Account> findAccountAll();
+
+    List<Account> findAccountInnerUserAll();
 }

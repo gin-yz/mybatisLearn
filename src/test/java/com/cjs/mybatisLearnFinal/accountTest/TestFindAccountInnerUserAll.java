@@ -13,8 +13,9 @@ import org.junit.Test;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.function.Consumer;
 
-public class FindAccountAll {
+public class TestFindAccountInnerUserAll {
     private SqlSession sqlSession;
     private InputStream inputStream;
 
@@ -29,10 +30,10 @@ public class FindAccountAll {
     }
 
     @Test
-    public void findAccountAll() {
+    public void findAccountInnerUserAll() {
         AccountDao accountDao = this.sqlSession.getMapper(AccountDao.class);
 
-        List<Account> accountList = accountDao.findAccountAll();
+        List<Account> accountList = accountDao.findAccountInnerUserAll();
 
         accountList.forEach(System.out::println);
     }

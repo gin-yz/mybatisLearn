@@ -4,9 +4,32 @@
 
 <mapper namespace="com.cjs.mybatisLearnFinal.dao.AccountDao">
 
+    <!-- 取出account和user的一对一映射结果，其中user封装在account中 -->
+    <resultMap id="accountusermap" type="account">
+        <id property="id" column="id"/>
+        <result property="uid" column="uid"/>
+        <result property="money" column="money"/>
+        <association property="user" column="uid">
+            <id property="id" column="uid"/>
+            <result property="username" column="username"/>
+            <result property="birthday" column="birthday"/>
+            <result property="sex" column="sex"/>
+            <result property="address" column="address"/>
+        </association>
+
+    </resultMap>
+
+    <!-- 这一条只能查出基本的account，不能通过外健查出user的各个属性的值 -->
     <select id="findAccountAll" resultType="account">
         select * from account;
     </select>
 
+    <!-- 需要通过外键将user的内容查出(也就是多表联合查询)，mabatis才会封装到返回的user对象中-->
+    <select id="findAccountInnerUserAll" resultMap="accountusermap">
+        select A.id,A.uid,A.money,U.username,U.birthday,U.sex,U.address
+        from account as A
+        left join user as U
+        on A.uid = U.id
+    </select>
 
 </mapper>
