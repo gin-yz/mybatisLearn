@@ -1,7 +1,7 @@
-package com.cjs.mybatisLearnFinal;
+package com.cjs.mybatisLearnFinal.userTest;
 
-import com.cjs.mybatisLearnfinal.dao.UserDao;
-import com.cjs.mybatisLearnfinal.domain.User;
+import com.cjs.mybatisLearnFinal.dao.UserDao;
+import com.cjs.mybatisLearnFinal.domain.User;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
@@ -13,10 +13,10 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-public class TestSelectFindALl {
+public class TestSelectFindUserAll {
     public static void main(String[] args) throws IOException {
 //        InputStream inputStream = Resources.getResourceAsStream("sqlMapConfig.xml");
-        InputStream inputStream = TestSelectFindALl.class.getClassLoader().getResourceAsStream("SqlMapConfig.xml");
+        InputStream inputStream = TestSelectFindUserAll.class.getClassLoader().getResourceAsStream("SqlMapConfig.xml");
 
         SqlSessionFactoryBuilder sqlSessionFactoryBuilder = new SqlSessionFactoryBuilder();
         SqlSessionFactory sqlSessionFactory = sqlSessionFactoryBuilder.build(inputStream);
@@ -24,7 +24,7 @@ public class TestSelectFindALl {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         UserDao userDao = sqlSession.getMapper(UserDao.class);
 
-        List<User> users = userDao.findAll();
+        List<User> users = userDao.findUserAll();
 
         users.stream().map(new Function<User, Date>() {
             @Override

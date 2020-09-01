@@ -1,7 +1,7 @@
-package com.cjs.mybatisLearnFinal;
+package com.cjs.mybatisLearnFinal.accountTest;
 
-import com.cjs.mybatisLearnfinal.dao.UserDao;
-import com.cjs.mybatisLearnfinal.domain.User;
+import com.cjs.mybatisLearnFinal.dao.AccountDao;
+import com.cjs.mybatisLearnFinal.domain.Account;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -14,30 +14,31 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-public class TestFindUserByLikeName {
+public class FindAccountAll {
     private SqlSession sqlSession;
     private InputStream inputStream;
 
     @Before
     public void init() throws IOException {
         this.inputStream = Resources.getResourceAsStream("SqlMapConfig.xml");
+
         SqlSessionFactoryBuilder sqlSessionFactoryBuilder = new SqlSessionFactoryBuilder();
-        SqlSessionFactory sqlSessionFactory = sqlSessionFactoryBuilder.build(inputStream);
+        SqlSessionFactory sqlSessionFactory = sqlSessionFactoryBuilder.build(this.inputStream);
+
         this.sqlSession = sqlSessionFactory.openSession();
     }
 
-
     @Test
-    public void testFindUserByLikeName(){
-        UserDao userDao = this.sqlSession.getMapper(UserDao.class);
+    public void findAccountAll() {
+        AccountDao accountDao = this.sqlSession.getMapper(AccountDao.class);
 
-        List<User> userList = userDao.findUserByNameLike("cjs");
+        List<Account> accountList = accountDao.findAccountAll();
 
-        userList.forEach(System.out::println);
+        accountList.forEach(System.out::println);
     }
 
     @After
-    public void destroy() throws IOException {
+    public void destory() throws IOException {
         this.sqlSession.commit();
         this.sqlSession.close();
         this.inputStream.close();

@@ -1,13 +1,13 @@
-package com.cjs.mybatisLearnfinal.dao;
+package com.cjs.mybatisLearnFinal.dao;
 
-import com.cjs.mybatisLearnfinal.domain.QueryPoJo;
-import com.cjs.mybatisLearnfinal.domain.User;
+import com.cjs.mybatisLearnFinal.domain.QueryPoJo;
+import com.cjs.mybatisLearnFinal.domain.User;
 
 import java.util.List;
 
 public interface UserDao {
 
-    List<User> findAll();
+    List<User> findUserAll();
 
     void saveUser(User user);
 

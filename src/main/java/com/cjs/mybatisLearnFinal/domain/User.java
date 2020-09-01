@@ -1,6 +1,5 @@
-package com.cjs.mybatisLearnfinal.domain;
+package com.cjs.mybatisLearnFinal.domain;
 
-import javax.xml.crypto.Data;
 import java.io.Serializable;
 import java.util.Date;
 

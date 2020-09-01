@@ -1,7 +1,7 @@
-package com.cjs.mybatisLearnFinal;
+package com.cjs.mybatisLearnFinal.userTest;
 
-import com.cjs.mybatisLearnfinal.dao.UserDao;
-import com.cjs.mybatisLearnfinal.domain.User;
+import com.cjs.mybatisLearnFinal.dao.UserDao;
+import com.cjs.mybatisLearnFinal.domain.User;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -39,7 +39,7 @@ public class TestDeletUser {
     public void deleteUser() {
         UserDao userDao = this.sqlSession.getMapper(UserDao.class);
 
-        List<User> userList = userDao.findAll();
+        List<User> userList = userDao.findUserAll();
 
         userList.forEach(user -> {
             if(user.getUsername().length()>=4 && user.getUsername().substring(0,3).equals("cjs")){

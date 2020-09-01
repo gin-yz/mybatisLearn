@@ -1,4 +1,4 @@
-package com.cjs.mybatisLearnfinal.domain;
+package com.cjs.mybatisLearnFinal.domain;
 
 import java.util.List;
 

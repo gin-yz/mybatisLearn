@@ -1,7 +1,7 @@
-package com.cjs.mybatisLearnFinal;
+package com.cjs.mybatisLearnFinal.userTest;
 
-import com.cjs.mybatisLearnfinal.dao.UserDao;
-import com.cjs.mybatisLearnfinal.domain.User;
+import com.cjs.mybatisLearnFinal.dao.UserDao;
+import com.cjs.mybatisLearnFinal.domain.User;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-public class TestFindByCondition {
+public class TestFindUserByCondition {
     private SqlSession sqlSession;
     private InputStream inputStream;
 

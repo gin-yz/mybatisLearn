@@ -1,8 +1,8 @@
-package com.cjs.mybatisLearnFinal;
+package com.cjs.mybatisLearnFinal.userTest;
 
-import com.cjs.mybatisLearnfinal.dao.UserDao;
-import com.cjs.mybatisLearnfinal.domain.QueryPoJo;
-import com.cjs.mybatisLearnfinal.domain.User;
+import com.cjs.mybatisLearnFinal.dao.UserDao;
+import com.cjs.mybatisLearnFinal.domain.QueryPoJo;
+import com.cjs.mybatisLearnFinal.domain.User;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;

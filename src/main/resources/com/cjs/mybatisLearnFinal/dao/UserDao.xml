@@ -2,20 +2,20 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.cjs.mybatisLearnfinal.dao.UserDao">
+<mapper namespace="com.cjs.mybatisLearnFinal.dao.UserDao">
     <!-- 若java中的实体类和mysql中的列名不一致，需要使用resultMap重新映射，resultMap标签中id值随意；若相同，可不设置 -->
-    <resultMap id="userMap" type="com.cjs.mybatisLearnfinal.domain.User">
+    <resultMap id="userMap" type="com.cjs.mybatisLearnFinal.domain.User">
         <id property="id" column="id"></id> <!-- 主键使用id标签 -->
         <result property="username" column="username"></result>
         <result property="birthday" column="birthday"></result>
         <result property="sex" column="sex"></result>
         <result property="address" column="address"></result>
     </resultMap>
-    <select id="findAll" resultMap="userMap">
+    <select id="findUserAll" resultMap="userMap">
         select * from user;
     </select>
 
-    <insert id="saveUser" parameterType="com.cjs.mybatisLearnfinal.domain.User">
+    <insert id="saveUser" parameterType="com.cjs.mybatisLearnFinal.domain.User">
         insert into user(username,address,sex,birthday) values (#{username},#{address},#{sex},#{birthday});
         <!-- 可以把保存后的id返还，就返回在对象中，及其方便 -->
         <selectKey keyProperty="id" keyColumn="id" resultType="java.lang.Integer" order="AFTER"> <!--keyProperty:实体类中字段的名字,keyColumn:数据库中的列名-->
@@ -23,7 +23,7 @@
         </selectKey>
     </insert>
 
-    <update id="updateUser" parameterType="com.cjs.mybatisLearnfinal.domain.User">
+    <update id="updateUser" parameterType="com.cjs.mybatisLearnFinal.domain.User">
         update user
         set username = #{username},address=#{address},sex=#{sex},birthday=#{birthday}
         where id = #{id}
@@ -35,7 +35,7 @@
         where id = #{userid};
     </delete>
 
-    <select id="findUserByNameLike" parameterType="java.lang.String" resultType="com.cjs.mybatisLearnfinal.domain.User">
+    <select id="findUserByNameLike" parameterType="java.lang.String" resultType="com.cjs.mybatisLearnFinal.domain.User">
         select *
         from user
         where username like "%"#{username}"%"  <!-- or use concat('%',#{username},'%') -->
@@ -43,7 +43,7 @@
     </select>
 
     <!-- 直接使用对象中定义变量，若变量是一个对象，直接使用"."访问，必须指定get\set方法 -->
-    <select id="findUserByPoJo" parameterType="com.cjs.mybatisLearnfinal.domain.QueryPoJo" resultType="com.cjs.mybatisLearnfinal.domain.User">
+    <select id="findUserByPoJo" parameterType="com.cjs.mybatisLearnFinal.domain.QueryPoJo" resultType="com.cjs.mybatisLearnFinal.domain.User">
         select *
         from user
         where username like "%"#{user.username}"%"
@@ -51,7 +51,7 @@
     </select>
 
 <!--    if会全部判断，符合条件的都会显示，务必使用and或者or连接语句，if判断的是传入值的条件 -->
-    <select id="findUserByCondition" parameterType="com.cjs.mybatisLearnfinal.domain.User" resultType="com.cjs.mybatisLearnfinal.domain.User">
+    <select id="findUserByCondition" parameterType="com.cjs.mybatisLearnFinal.domain.User" resultType="com.cjs.mybatisLearnFinal.domain.User">
         select *
         from user
         <where>
